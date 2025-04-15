@@ -6,20 +6,17 @@ from utils.feature_extraction import extract_features
 
 app = Flask(__name__)
 
-# Load model
 model = joblib.load(os.path.join("model", "rf_model.joblib"))
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     prediction = None
-    probability = None  # Initialize the probability variable
+    probability = None 
     if request.method == 'POST':
         url = request.form['url']
         
-        # Extract features from the URL
         features = extract_features(url)
 
-        # Ensure features match the training data's column order
         X = pd.DataFrame([features])
         training_columns = [  # Same order used during training
             'shannon_entropy', 'directory_length', 'has_dir', 'file_length', 'length_url',

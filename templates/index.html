@@ -1,18 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>URL Safety Checker</title>
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #2c2c2c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        h2 {
+            font-weight: 500;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            margin-bottom: 40px;
+            max-width: 900px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            padding: 14px 16px;
+            width: 100%;
+            max-width: 600px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: none;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            border-color: #999;
+        }
+
+        button {
+            padding: 14px 24px;
+            font-size: 16px;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 24px 30px;
+            border-radius: 12px;
+            display: inline-block;
+            min-width: 320px;
+            max-width: 600px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .safe {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .malicious {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .confidence {
+            margin-top: 10px;
+            font-weight: 500;
+            font-size: 15px;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Is this link safe?</h2>
+
+    <h2>Phishing URLs Detector</h2>
+
     <form method="POST">
-        <input type="text" name="url" placeholder="Enter a URL" required>
+        <input type="text" name="url" placeholder="Paste URL here.." required value="{{ request.form.url }}">
         <button type="submit">Check</button>
     </form>
 
     {% if prediction is not none %}
-        <h3>Result: {{ 'Malicious 🚨' if prediction == 1 else 'Safe ✅' }}</h3>
-        <p>Probability of danger: {{ probability * 100 }}%</p> 
+        <div class="result {{ 'malicious' if prediction == 1 else 'safe' }}">
+            <h3>{{ 'This URL may be malicious' if prediction == 1 else 'This URL appears safe' }}</h3>
+            <p class="confidence">Estimated malicious probability: {{ (probability * 100) | round(2) }}%</p>
+        </div>
     {% endif %}
+
 </body>
 </html>
