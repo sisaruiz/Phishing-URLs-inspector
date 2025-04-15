@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Safety Checker</title>
+</head>
+<body>
+    <h2>Is this link safe?</h2>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter a URL" required>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if prediction is not none %}
+        <h3>Result: {{ 'Malicious 🚨' if prediction == 1 else 'Safe ✅' }}</h3>
+    {% endif %}
+</body>
+</html>
