@@ -144,4 +144,4 @@ def extract_features(url):
     all_features = {**url_features, **domain_features, **directory_features, **file_features, **params_features}
     all_features['shannon_entropy'] = shannon_entropy(url)
     
-    return list(all_features.values())
+    return all_features
