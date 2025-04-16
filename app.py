@@ -18,7 +18,7 @@ def home():
         features = extract_features(url)
 
         X = pd.DataFrame([features])
-        training_columns = [  # Same order used during training
+        training_columns = [  # order used during training
             'shannon_entropy', 'directory_length', 'has_dir', 'file_length', 'length_url',
             'qty_dot_params', 'qty_dot_url', 'qty_hyphen_directory', 'qty_underline_params',
             'qty_slash_params', 'qty_slash_url', 'domain_length', 'qty_at_params',
@@ -32,10 +32,9 @@ def home():
         ]
         X = X[training_columns]
 
-        # Get the prediction and probability for the "bad" class
         prob = model.predict_proba(X)
-        prediction = model.predict(X)[0]  # Predicted class (0 or 1)
-        probability = prob[0][1]  # Probability of being "bad" (malicious)
+        prediction = model.predict(X)[0]  # predicted class (0 or 1)
+        probability = prob[0][1]  # probability of being "bad"
 
     return render_template('index.html', prediction=prediction, probability=probability)
 
