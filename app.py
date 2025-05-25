@@ -6,7 +6,7 @@ from utils.feature_extraction import extract_features
 
 app = Flask(__name__)
 
-model = joblib.load(os.path.join("model", "rf_model.joblib"))
+model = joblib.load(os.path.join("model", "random_forest_model.pkl"))
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -19,16 +19,13 @@ def home():
 
         X = pd.DataFrame([features])
         training_columns = [  # order used during training
-            'shannon_entropy', 'directory_length', 'has_dir', 'file_length', 'length_url',
-            'qty_dot_params', 'qty_dot_url', 'qty_hyphen_directory', 'qty_underline_params',
-            'qty_slash_params', 'qty_slash_url', 'domain_length', 'qty_at_params',
-            'qty_hyphen_params', 'qty_hashtag_params', 'qty_comma_params',
-            'qty_exclamation_params', 'qty_vowels_domain', 'qty_hyphen_file',
-            'qty_asterisk_params', 'qty_dollar_params', 'has_file',
-            'qty_questionmark_params', 'qty_tilde_params', 'qty_dot_domain',
-            'params_length', 'qty_slash_directory', 'qty_and_params', 'qty_equal_params',
-            'qty_plus_params', 'qty_dot_directory', 'qty_underline_file',
-            'qty_percent_params', 'qty_hyphen_domain', 'qty_hyphen_url'
+            'qty_dot_url', 'qty_hyphen_url', 'qty_slash_url', 'qty_questionmark_url', 'qty_equal_url',
+            'qty_and_url', 'qty_plus_url', 'qty_tld_url', 'length_url', 'qty_dot_domain', 'qty_hyphen_domain',
+            'qty_vowels_domain', 'domain_length', 'has_dir', 'qty_dot_directory', 'qty_hyphen_directory',
+            'qty_underline_directory', 'qty_slash_directory', 'qty_plus_directory', 'directory_length',
+            'has_file', 'qty_dot_file', 'qty_hyphen_file', 'qty_underline_file', 'file_length', 'has_params',
+            'qty_dot_params', 'qty_slash_params', 'qty_questionmark_params', 'qty_equal_params', 'qty_and_params',
+            'params_length', 'tld_present_params', 'qty_params', 'shannon_entropy'
         ]
         X = X[training_columns]
 
