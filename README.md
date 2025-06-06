@@ -11,8 +11,8 @@ Users can input a URL through the web interface. The application extracts releva
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/your-username/phishing-url-detector.git
-cd phishing-url-detector
+git clone https://github.com/sisaruiz/Phishing-URLs-inspector.git
+cd Phishing-URLs-inspector
 ```
 
 2. **Set up a virtual environment:**
